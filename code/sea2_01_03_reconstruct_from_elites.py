@@ -27,15 +27,15 @@ SOLVER_FILE_NAME = '/home/jjh/Project/competition/15_sea2/sea2_01_02_local_searc
 # --- 코드 시작 ---
 
 def load_solver_module(file_path):
-    """지정된 파이썬 파일을 모듈로 동적 로드하는 함수"""
+    """파이썬 파일 모듈 로드"""
     try:
         spec = importlib.util.spec_from_file_location("solver_module", file_path)
         solver_module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(solver_module)
-        print(f"✅ '{file_path}' 파일에서 기존 솔버 모듈을 성공적으로 불러왔습니다.")
+        print(f"'{file_path}' 파일에서 솔버 모듈 로드 완료")
         return solver_module
     except FileNotFoundError:
-        print(f"🚨 오류: 솔버 파일 '{file_path}'을(를) 찾을 수 없습니다. SOLVER_FILE_NAME을 확인해주세요.")
+        print(f"오류: 솔버 파일 '{file_path}'을 찾을 수 없습니다. SOLVER_FILE_NAME을 확인하세요")
         exit()
 
 # 솔버 모듈 로드
@@ -46,7 +46,7 @@ AlnsSolver = solver_module.AlnsSolver
 generate_submission_file = solver_module.generate_submission_file
 
 def parse_submission_to_routes(file_path):
-    """제출 CSV 파일을 읽어 routes 딕셔너리로 파싱하는 함수"""
+    """CSV 파일 파싱"""
     routes = {}
     try:
         df = pd.read_csv(file_path)
@@ -61,7 +61,7 @@ def parse_submission_to_routes(file_path):
     return routes
 
 def advanced_cherry_pick_and_repair(data_model, solver_instance):
-    """'고급 체리피킹' 메인 함수"""
+    """체리피킹 메인"""
     
     submission_files = glob.glob(os.path.join(sPATH, '*.csv'))
     if not submission_files:
